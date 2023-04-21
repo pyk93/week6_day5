@@ -77,7 +77,14 @@ class KNearestNeighbor(object):
                 #####################################################################
                 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-                pass
+                point_test = X[i]
+                point_train = self.X_train[j]
+
+                point_diff = point_test - point_train
+                double_diff = np.power(point_diff,2)
+                square_diff_sum = np.sum(double_diff)
+                
+                dists[i][j] = np.sqrt(square_diff_sum)
 
                 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
