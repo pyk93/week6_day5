@@ -113,7 +113,7 @@ class KNearestNeighbor(object):
 
                 point_diffs = point_tests - point_trains
                 double_diffs = point_diffs * point_diffs
-                
+
                 square_diff_sum = np.sum(double_diffs, axis=1)
 
                 dists[i] = np.sqrt(square_diff_sum)
@@ -146,7 +146,21 @@ class KNearestNeighbor(object):
         #########################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        x2 = X * X
+        y2 = self.X_train * self.X_train
+
+        yt= np.transpose(self.X_train)
+
+        xy = np.matmul(X, yt)
+
+        x2sum = np.sum(x2, axis = 1,keepdims=True)
+        y2sum = np.sum(y2, axis = 1)
+
+        x2tile = np.tile(x2sum, reps = [1,num_train])
+        y2tile = np.tile(y2sum, reps = [num_test,1])
+
+        d2 = x2tile + y2tile - xy - xy
+        dists=np.sqrt(d2)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
