@@ -108,7 +108,15 @@ class KNearestNeighbor(object):
             #######################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+                point_tests = np.tile(X[i], reps=[num_train,1])
+                point_trains = self.X_train
+
+                point_diffs = point_tests - point_trains
+                double_diffs = point_diffs * point_diffs
+                
+                square_diff_sum = np.sum(double_diffs, axis=1)
+
+                dists[i] = np.sqrt(square_diff_sum)
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
@@ -202,7 +210,7 @@ class KNearestNeighbor(object):
             	if max_count < current_count:
             		max_label = current_label
             		max_count = current_count
-            
+
             y_pred[i] = max_label
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
