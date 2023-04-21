@@ -83,7 +83,7 @@ class KNearestNeighbor(object):
                 point_diff = point_test - point_train
                 double_diff = np.power(point_diff,2)
                 square_diff_sum = np.sum(double_diff)
-                
+
                 dists[i][j] = np.sqrt(square_diff_sum)
 
                 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
@@ -171,7 +171,11 @@ class KNearestNeighbor(object):
             #########################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+            sorted_dist = dists[i].argsort()
+            for j in range(k):
+            	kth_index = sorted_dist[j]
+            	kth_label = self.y_train[kth_index]
+            	closest_y.append(kth_label)
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
             #########################################################################
@@ -183,7 +187,23 @@ class KNearestNeighbor(object):
             #########################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+            closest_y.sort()
+
+            current_label = closest_y[0]
+            current_count = 1
+            max_label = current_label
+            max_count = current_count
+            for j in range(1,k):
+            	if current_label == closest_y[j]:
+            		current_count+=1
+            	else:
+            		current_label = closest_y[j]
+            		current_count = 1
+            	if max_count < current_count:
+            		max_label = current_label
+            		max_count = current_count
+            
+            y_pred[i] = max_label
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
